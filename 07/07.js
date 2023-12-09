@@ -3,7 +3,7 @@ var fs = require("fs")
 var path = require("path")
 
 tests.test.test(() => {
-    tests.testWithInput(run1, [], run2, [], 6440, 248105065, 5905, 249515436)
+    tests.testWithInput(run1, [], run2, [], __filename, 6440, 248105065, 5905, 249515436)
 })
 
 function run1(file) {
@@ -47,7 +47,7 @@ function run2(file) {
             var aggr = JSON.parse(JSON.stringify(things));
             chars.forEach(a => aggr[a] = [...aggr[a], a])
             a.push(aggr);
-            return a; 
+            return a;
         })
     return some.map(a => {
         var cardCounts = Object.values(a[3]).map(v => v.length);
@@ -71,4 +71,3 @@ function run2(file) {
         }
     }).reduce((a, b, i) => a + (b[1] * (i + 1)), 0)
 }
- 

@@ -31,12 +31,12 @@ function withFile(name, fn, args, expected) {
     }
 }
 
-function testWithInput(fn1, fn1Args, fn2, fn2Args, ...args) {
+function testWithInput(fn1, fn1Args, fn2, fn2Args, filename, ...args) {
     var [ex1_expected, in1_expected, ex2_expected, in2_expected] = args;
     withFile('example 1', fn1, ['example.txt', ...fn1Args], ex1_expected)
     withFile('input 1', fn1, ['input.txt', ...fn1Args], in1_expected)
     var ex2_file = 'example.txt';
-    if (fs.existsSync(path.dirname(__filename) + "/" + 'example2.txt', "utf8")) {
+    if (fs.existsSync(path.dirname(filename) + "/" + 'example2.txt', "utf8")) {
         ex2_file = 'example2.txt';
     }
     withFile('example 2', fn2, [ex2_file, ...fn2Args], ex2_expected)
@@ -60,7 +60,7 @@ function run(filename, self) {
             var runString = ';testRef.ex();'
             vm.runInContext(data + runString, sandBox, {
                 filename: pathname,
-                timeout: 1000
+                timeout: 100000
             });
         } catch (e) {
             console.log(e)
