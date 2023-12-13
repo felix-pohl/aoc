@@ -25,15 +25,13 @@ function run2(file) {
         const r = lines.length;
         for (let i = 0; i < l; i++) {
             for (let j = 0; j < r; j++) {
-                var newP = flipSmudge(i, j, l, p);
+                var newP = flipSmudgeArray(i, j, l, p);
                 var newResult = findMirror(newP, originalResult);
                 if (newResult != null && newResult != originalResult) {
-                    console.log(pi, 'with result')
                     return newResult;
                 }
             }
         }
-        console.log(pi, 'no result')
         return 0;
     }).reduce((a, b) => a + b, 0)
 }
@@ -45,6 +43,18 @@ function flipSmudge(x, y, l, p) {
     changedLine = changedLine.join('')
     lines[y] = changedLine
     return lines.join('\r\n');
+}
+
+function flipSmudgeSubstr(x, y, l, p) {
+    const c = p.at(x + y * (l + 2));
+    const replace = c === '.' ? '#' : '.';
+    return p.substring(0, x + y * (l + 2)) + replace + p.substring(x + y * (l + 2) + 1);
+}
+
+function flipSmudgeArray(x, y, l, p) {
+    var arr = p.split('');
+    arr[x + y * (l + 2)] = arr[x + y * (l + 2)] === '.' ? '#' : '.';
+    return arr.join('')
 }
 
 function findMirror(pattern, skipresult) {

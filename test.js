@@ -22,12 +22,14 @@ var testObj = {
 }
 
 function withFile(name, fn, args, expected) {
+    const timer = new Date().getTime();
     const ex1_actual = fn.apply(null, args)
     var result1_example = ex1_actual == expected;
     if (!result1_example) {
         throw new Error('\x1b[31m❌\x1b[0m ' + name + ' was not correct got \x1b[31m' + ex1_actual + '\x1b[0m expected \x1b[32m' + expected + '\x1b[0m')
     } else {
-        console.log('\x1b[32m✔\x1b[0m ' + name + ' success')
+        const completed = new Date().getTime();
+        console.log('\x1b[32m✔\x1b[0m ' + name + ' success @ ' + (completed - timer) + 'ms')
     }
 }
 
