@@ -1,4 +1,3 @@
-const { Console } = require("console")
 var tests = require("./test")
 var fs = require("fs")
 var path = require("path")
@@ -56,45 +55,5 @@ function HASH(line) {
         a %= 256;
         return a;
     }, 0)
-}
-
-function tally(lines) {
-    return lines.map(l => l.join('')).reverse().map(l => l.split('').filter(c => c === 'O').length).reduce((a, b, i) => a + b * (i + 1), 0)
-}
-
-function printRocks(lines) {
-    console.log(lines.map(l => l.join('')).join('\r\n'));
-    console.log(tally(lines))
-    console.log('')
-}
-
-function spinCycle(lines) {
-    tilt(lines, -1, 0)
-    tilt(lines, 0, -1)
-    tilt(lines, +1, 0)
-    tilt(lines, 0, +1)
-}
-
-function tilt(lines, dx, dy) {
-    for (let x = 0; x < lines.length; x++) {
-        for (let y = 0; y < lines[0].length; y++) {
-            slide(x, y, lines, dx, dy)
-        }
-    }
-}
-
-function slide(x, y, lines, dx, dy) {
-    if (dx > 0) {
-        x = lines.length - 1 - x;
-    }
-    if (dy > 0) {
-        y = lines[0].length - 1 - y;
-    }
-    while (x >= 0 - dx && y >= 0 - dy && x < lines.length - dx && y < lines[0].length - dy && lines[x][y] == 'O' && lines[x + dx][y + dy] == '.') {
-        lines[x][y] = '.'
-        lines[x + dx][y + dy] = 'O'
-        x = x + dx;
-        y = y + dy;
-    }
 }
 
